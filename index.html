@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Siniestros Viales - Estado de Chiapas</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+
+  <!-- Encabezado -->
+  <header>
+    <img src="fondo-tuxtla.jpg" alt="Fondo de Tuxtla" class="fondo">
+    <div class="logo">
+      <img src="logo-smyt.png" alt="Logo Secretaría de Movilidad y Transporte">
+    </div>
+    <div class="titulo">
+      <h1>Sistema de Siniestros Viales</h1>
+      <p>Secretaría de Movilidad y Transporte</p>
+      <p class="estrategia-nacional">Estrategia Nacional de Movilidad y Seguridad Vial</p>
+    </div>
+  </header>
+
+  <!-- Menú de navegación principal -->
+  <nav class="menu">
+    <a href="index.html" class="active"><button><i class="fas fa-home"></i> Inicio</button></a>
+    <a href="registro.html"><button><i class="fas fa-plus-circle"></i> Registro de Incidentes</button></a>
+    <a href="mapa.html"><button><i class="fas fa-map-marked-alt"></i> Mapa de Incidentes</button></a>
+    <a href="estadisticas.html"><button><i class="fas fa-chart-line"></i> Estadísticas y Análisis</button></a>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido-principal">
+    <section class="hero">
+      <div class="hero-content">
+        <h2>Bienvenido al Sistema de Registro de Siniestros Viales</h2>
+        <p>Una plataforma integral para el monitoreo, registro y análisis de incidentes viales en el Estado de Chiapas</p>
+        <br>
+        <p>🔧 𝙀𝙨𝙩𝙚 𝙨𝙞𝙨𝙩𝙚𝙢𝙖 𝙨𝙚 𝙚𝙣𝙘𝙪𝙚𝙣𝙩𝙧𝙖 𝙚𝙣 𝙛𝙖𝙨𝙚 𝙗𝙚𝙩𝙖. 𝙀𝙨𝙩𝙖𝙢𝙤𝙨 𝙩𝙧𝙖𝙗𝙖𝙟𝙖𝙣𝙙𝙤 𝙥𝙖𝙧𝙖 𝙢𝙚𝙟𝙤𝙧𝙖𝙧 𝙨𝙪 𝙛𝙪𝙣𝙘𝙞𝙤𝙣𝙖𝙡𝙞𝙙𝙖𝙙</p>
+      </div>
+    </section>
+
+    <!-- Tarjetas de funcionalidades -->
+<section class="funcionalidades">
+  <div class="tarjetas">
+    <!-- Tarjeta 1: Registro de Incidentes -->
+    <div class="tarjeta" onclick="window.location.href='registro.html'">
+      <div class="tarjeta-icono">
+        <img src="img/registro.gif" alt="Registro de Incidentes" class="gif-icono">
+      </div>
+      <h3>Registro de Incidentes</h3>
+      <p>Captura datos detallados de los siniestros viales, incluyendo fecha, causa, ubicación y evidencias fotográficas de manera rápida y eficiente.</p>
+      <div class="tarjeta-boton">
+        <span>Ir al Registro <i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- Tarjeta 2: Mapa Interactivo -->
+    <div class="tarjeta" onclick="window.location.href='mapa.html'">
+      <div class="tarjeta-icono">
+        <img src="img/mapa.gif" alt="Mapa Interactivo" class="gif-icono">
+      </div>
+      <h3>Mapa Interactivo</h3>
+      <p>Visualiza zonas con mayor concentración de incidentes mediante un mapa interactivo con diferentes capas, filtros y herramientas de análisis.</p>
+      <div class="tarjeta-boton">
+        <span>Ver Mapa <i class="fas fa-arrow-right"></i></span>
+      </div>
+    </div>
+
+    <!-- Tarjeta 3: Estadísticas y Análisis -->
+    <div class="tarjeta" onclick="window.location.href='estadisticas.html'">
+      <div class="tarjeta-icono">
+        <img src="img/estadistica.gif" alt="Estadísticas y Análisis" class="gif-icono">
+      </div>
+      <h3>Estadísticas y Análisis</h3>
+      <p>Consulta gráficas, reportes y análisis visual avanzado para la toma de decisiones basadas en datos actualizados en tiempo real.</p>
+      <div class="tarjeta-boton">
+        <span>Ver Estadísticas <i class="fas fa-external-link-alt"></i></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Estadísticas rápidas -->
+    <section class="estadisticas-rapidas">
+      <h2>Estadísticas del Sistema</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-numero" id="totalIncidentes">---</div>
+          <div class="stat-label">Total de Incidentes Registrados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-numero" id="incidentesMes">---</div>
+          <div class="stat-label">Incidentes Este Mes</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-numero" id="ultimaActualizacion">---</div>
+          <div class="stat-label">Última Actualización</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mapa de Calor Vista Rápida -->
+    <section class="mapa-calor-preview">
+      <div class="mapa-header">
+        <h2><i class="fas fa-fire"></i> Mapa de Calor - Distribución de Incidentes</h2>
+        <a href="mapa.html" class="btn-ver-mapa-completo">
+          <i class="fas fa-expand"></i> Ver Mapa Completo
+        </a>
+      </div>
+      <div class="mapa-info">
+        <p>Visualización rápida de las zonas con mayor concentración de incidentes viales.</p>
+      </div>
+      <div id="mapaCalorPreview" class="mapa-container">
+        <div class="mapa-loading">
+          <div class="spinner"></div>
+          <p>Cargando mapa de calor...</p>
+        </div>
+      </div>
+
+
+    <!-- Información del sistema -->
+    <section class="info-sistema">
+      <div class="info-grid">
+        <div class="info-item">
+          <h3><i class="fas fa-shield-alt"></i> Seguridad y Confiabilidad</h3>
+          <p>Sistema desarrollado con los más altos estándares de seguridad para proteger la información sensible de los incidentes viales.</p>
+        </div>
+        <div class="info-item">
+          <h3><i class="fas fa-mobile-alt"></i> Acceso Multiplataforma</h3>
+          <p>Compatible con dispositivos móviles, tablets y computadoras de escritorio para facilitar el registro desde cualquier lugar.</p>
+        </div>
+        <div class="info-item">
+          <h3><i class="fas fa-clock"></i> Actualización en Tiempo Real</h3>
+          <p>Los datos se actualizan automáticamente para mantener la información siempre actualizada y disponible para análisis.</p>
+        </div>
+        <div class="info-item">
+          <h3><i class="fas fa-download"></i> Exportación de Datos</h3>
+          <p>Descarga información en múltiples formatos (KML, GeoJSON, Shapefile) para análisis en sistemas GIS profesionales.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Secretaría de Movilidad y Transporte</h4>
+        <p>Estado de Chiapas, México</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos en redes sociales</h4>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/16mbEXWtoj/?mibextid=wwXIfr" target="_blank">
+            <img src="facebook-icon.png" alt="Facebook" class="icono-facebook">
+          </a>
+          <a href="https://www.instagram.com/smyt_chiapas?igsh=MTdteHo3d2NlNmY3cA==" target="_blank">
+            <img src="instagram-icon.png" alt="Instagram" class="icono-instagram">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

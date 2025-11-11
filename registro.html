@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Incidentes - Siniestros Viales</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="registro.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Cloudinary Upload Widget -->
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+</head>
+<body>
+
+  <!-- Encabezado -->
+  <header>
+    <img src="fondo-tuxtla.jpg" alt="Fondo de Tuxtla" class="fondo">
+    <div class="logo">
+      <img src="logo-smyt.png" alt="Logo Secretaría de Movilidad y Transporte">
+    </div>
+    <div class="titulo">
+      <h1>Registro de Incidentes</h1>
+      <p>Estado de Chiapas · Secretaría de Movilidad y Transporte</p>
+      <p class="estrategia-nacional">Estrategia Nacional de Movilidad y Seguridad Vial</p>
+    </div>
+  </header>
+
+  <!-- Menú de navegación principal -->
+  <nav class="menu">
+    <a href="index.html"><button><i class="fas fa-home"></i> Inicio</button></a>
+    <a href="registro.html"><button><i class="fas fa-plus-circle"></i> Registro de Incidentes</button></a>
+    <a href="mapa.html"><button><i class="fas fa-map-marked-alt"></i> Mapa de Incidentes</button></a>
+    <a href="estadisticas.html"><button><i class="fas fa-chart-line"></i> Estadísticas y Análisis</button></a>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido-principal">
+    <section class="registro-seccion">
+      <h2 class="titulo-seccion"><i class="fas fa-clipboard-list"></i> Datos del Registro</h2>
+      
+      <form id="formIncidente">
+        <!-- Información del Registro -->
+        <fieldset class="fieldset-grupo">
+          <legend><i class="fas fa-user-tie"></i> Información del Registro</legend>
+          
+          <label><i class="fas fa-city"></i> Municipio
+            <select name="Municipio" required>
+              <option value="">-- Selecciona municipio --</option>
+              <option>Acacoyagua</option>
+              <option>Acala</option>
+              <option>Acapetahua</option>
+              <option>Altamirano</option>
+              <option>Amatán</option>
+              <option>Amatenango de la Frontera</option>
+              <option>Amatenango del Valle</option>
+              <option>Ángel Albino Corzo</option>
+              <option>Arriaga</option>
+              <option>Bejucal de Ocampo</option>
+              <option>Bella Vista</option>
+              <option>Berriozábal</option>
+              <option>Bochil</option>
+              <option>El Bosque</option>
+              <option>Cacahoatán</option>
+              <option>Catazajá</option>
+              <option>Cintalapa</option>
+              <option>Coapilla</option>
+              <option>Comitán de Domínguez</option>
+              <option>Copainalá</option>
+              <option>Chalchihuitán</option>
+              <option>Chamula</option>
+              <option>Chanal</option>
+              <option>Chapultenango</option>
+              <option>Chenalhó</option>
+              <option>Chiapa de Corzo</option>
+              <option>Chiapilla</option>
+              <option>Chicoasén</option>
+              <option>Chicomuselo</option>
+              <option>Chilón</option>
+              <option>Escuintla</option>
+              <option>Francisco León</option>
+              <option>Frontera Comalapa</option>
+              <option>Frontera Hidalgo</option>
+              <option>Huehuetán</option>
+              <option>Huitiupán</option>
+              <option>Huixtán</option>
+              <option>Huixtla</option>
+              <option>Ixhuatán</option>
+              <option>Ixtacomitán</option>
+              <option>Ixtapa</option>
+              <option>Ixtapangajoya</option>
+              <option>Jiquipilas</option>
+              <option>Jitotol</option>
+              <option>Juárez</option>
+              <option>La Concordia</option>
+              <option>La Grandeza</option>
+              <option>La Independencia</option>
+              <option>La Libertad</option>
+              <option>Las Margaritas</option>
+              <option>Las Rosas</option>
+              <option>Mapastepec</option>
+              <option>Maravilla Tenejapa</option>
+              <option>Marqués de Comillas</option>
+              <option>Mazapa de Madero</option>
+              <option>Mazatán</option>
+              <option>Metapa</option>
+              <option>Mezcalapa</option>
+              <option>Mitontic</option>
+              <option>Montecristo de Guerrero</option>
+              <option>Motozintla</option>
+              <option>Nicolás Ruíz</option>
+              <option>Ocosingo</option>
+              <option>Ocotepec</option>
+              <option>Ocozocoautla de Espinosa</option>
+              <option>Ostuacán</option>
+              <option>Osumacinta</option>
+              <option>Oxchuc</option>
+              <option>Palenque</option>
+              <option>Pantelhó</option>
+              <option>Pantepec</option>
+              <option>Pichucalco</option>
+              <option>Pijijiapan</option>
+              <option>Pueblo Nuevo Solistahuacán</option>
+              <option>Rayón</option>
+              <option>Reforma</option>
+              <option>Sabanilla</option>
+              <option>Salto de Agua</option>
+              <option>San Andrés Duraznal</option>
+              <option>San Cristóbal de las Casas</option>
+              <option>San Fernando</option>
+              <option>San Juan Cancuc</option>
+              <option>San Lucas</option>
+              <option>Santiago el Pinar</option>
+              <option>Siltepec</option>
+              <option>Simojovel</option>
+              <option>Sitalá</option>
+              <option>Socoltenango</option>
+              <option>Solosuchiapa</option>
+              <option>Soyaló</option>
+              <option>Suchiapa</option>
+              <option>Suchiate</option>
+              <option>Sunuapa</option>
+              <option>Tapachula</option>
+              <option>Tapalapa</option>
+              <option>Tapilula</option>
+              <option>Tecpatán</option>
+              <option>Tenejapa</option>
+              <option>Teopisca</option>
+              <option>Tila</option>
+              <option>Tonalá</option>
+              <option>Totolapa</option>
+              <option>Trinitaria</option>
+              <option>Tumbalá</option>
+              <option>Tuxtla Chico</option>
+              <option>Tuxtla Gutiérrez</option>
+              <option>Tuzantán</option>
+              <option>Tzimol</option>
+              <option>Unión Juárez</option>
+              <option>Venustiano Carranza</option>
+              <option>Villa Comaltitlán</option>
+              <option>Villa Corzo</option>
+              <option>Villaflores</option>
+              <option>Yajalón</option>
+              <option>Zinacantán</option>
+            </select>
+          </label>
+
+          <label><i class="fas fa-building"></i> Dependencia
+            <select id="dependenciaSelect" name="Dependencia" onchange="mostrarOtraDependencia()">
+              <option value="">-- Selecciona dependencia --</option>
+              <option value="Secretaría de Movilidad y Transporte">Secretaría de Movilidad y Transporte</option>
+              <option value="Otra">Otra dependencia</option>
+            </select>
+          </label>
+
+          <div id="otraDependenciaDiv" style="display: none;">
+            <label><i class="fas fa-edit"></i> Especifica otra dependencia
+              <input type="text" name="Otra_dependencia">
+            </label>
+          </div>
+
+          <label><i class="fas fa-envelope"></i> Correo Electrónico
+            <input type="email" name="Correo_Electronico" required>
+          </label>
+
+          <label><i class="fas fa-newspaper"></i> Fuente de noticia
+            <select id="fuenteNoticia" name="Fuente_de_noticia" onchange="mostrarLink()">
+              <option value="">-- Selecciona fuente --</option>
+              <option value="Noticia">Noticia</option>
+              <option value="PrimeraMano">Información de primera mano</option>
+            </select>
+          </label>
+
+          <div id="linkNoticia" style="display: none; grid-column: 1 / -1;">
+            <label><i class="fas fa-link"></i> Link de la noticia
+              <input type="url" name="Link_de_la_noticia" placeholder="https://ejemplo.com">
+            </label>
+          </div>
+        </fieldset>
+
+        <!-- Datos del Siniestro -->
+        <fieldset class="fieldset-grupo">
+          <legend><i class="fas fa-exclamation-triangle"></i> Datos del Siniestro</legend>
+
+          <label><i class="fas fa-calendar-alt"></i> Fecha del siniestro
+            <input type="date" name="Fecha_del_siniestro" required>
+          </label>
+
+          <label><i class="fas fa-car-crash"></i> Tipo de siniestro
+            <select name="Tipo_de_siniestro" required>
+              <option value="">-- Selecciona --</option>
+              <option>Exceso de velocidad</option>
+              <option>Conducción bajo efectos del alcohol o drogas</option>
+              <option>Distracción al volante</option>
+              <option>Fatiga o somnolencia del conductor</option>
+              <option>Fallas mecánicas</option>
+              <option>Condiciones climáticas adversas</option>
+              <option>Mal estado de la infraestructura</option>
+              <option>Diseño vial inadecuado</option>
+              <option>Otro</option>
+            </select>
+          </label>
+
+          <label><i class="fas fa-search"></i> Causa del siniestro
+            <select name="Causa_del_siniestro">
+              <option value="">-- Selecciona --</option>
+              <option>Choque</option>
+              <option>Atropello</option>
+              <option>Volcadura</option>
+              <option>Caída</option>
+              <option>Otro</option>
+            </select>
+          </label>
+
+          <label><i class="fas fa-user"></i> Usuario involucrado (1)
+            <select name="Usuario_involucrado (1)">
+              <option value="">-- Selecciona --</option>
+              <option>Peatón</option>
+              <option>Ciclista</option>
+              <option>Motociclista</option>
+              <option>Chofer de transporte público</option>
+              <option>Automovilista</option>
+              <option>Chofer de vehículo pesado</option>
+              <option>Otro</option>
+            </select>
+          </label>
+
+          <label><i class="fas fa-users"></i> Usuario involucrado (2)
+            <select name="Usuario_involucrado (2)">
+              <option value="">-- Selecciona --</option>
+              <option>Peatón</option>
+              <option>Ciclista</option>
+              <option>Motociclista</option>
+              <option>Chofer de transporte público</option>
+              <option>Automovilista</option>
+              <option>Chofer de vehículo pesado</option>
+              <option>Otro</option>
+            </select>
+          </label>
+
+          <!-- Menú dinámico para transporte público -->
+          <div id="transportePublicoDiv" style="grid-column: 1 / -1; display: none;">
+            <fieldset class="fieldset-grupo">
+              <legend><i class="fas fa-bus"></i> Información de Transporte Público</legend>
+              
+              <label><i class="fas fa-taxi"></i> Tipo de transporte público
+                <select id="Tipo_de_Transporte">
+                  <option value="">-- Selecciona --</option>
+                  <option value="Taxi">Taxi</option>
+                  <option value="Colectivo">Colectivo</option>
+                </select>
+              </label>
+
+              <label><i class="fas fa-search"></i> Placas del vehículo
+                <input type="text" id="placaTransporte" placeholder="Ej. DRT-123-A">
+                <button type="button" onclick="buscarConductor()">Buscar</button>
+              </label>
+
+              <div id="datosConductorDiv" style="display: none; margin-top: 20px;">
+                <h3><i class="fas fa-id-card"></i> Datos del conductor</h3>
+                <label><i class="fas fa-user-tie"></i> Concesionado
+                  <input type="text" id="campoConcesionado" name="Concesionado" readonly>
+                </label>
+                <label><i class="fas fa-hashtag"></i> No. Económico
+                  <input type="text" id="campoNoEconomico" name="No_Economico" readonly>
+                </label>
+                <label><i class="fas fa-file-contract"></i> Concesión
+                  <input type="text" id="campoConcesion" name="Concesion" readonly>
+                </label>
+                <label><i class="fas fa-tags"></i> Modalidad
+                  <input type="text" id="campoModalidad" name="Modalidad" readonly>
+                </label>
+                <label><i class="fas fa-car"></i> Placa
+                  <input type="text" id="campoPlaca" name="Placa_del_conductor" readonly>
+                </label>
+                <label><i class="fas fa-industry"></i> Marca
+                  <input type="text" id="campoMarca" name="Marca" readonly>
+                </label>
+                <label><i class="fas fa-cube"></i> Tipo
+                  <input type="text" id="campoTipo" name="Tipo" readonly>
+                </label>
+                <label><i class="fas fa-cog"></i> Motor
+                  <input type="text" id="campoMotor" name="Motor" readonly>
+                </label>
+                <label><i class="fas fa-barcode"></i> Serie
+                  <input type="text" id="campoSerie" name="Serie" readonly>
+                </label>
+                <label><i class="fas fa-calendar"></i> Modelo
+                  <input type="text" id="campoModelo" name="Modelo" readonly>
+                </label>
+              </div>
+            </fieldset>
+          </div>
+
+          <label><i class="fas fa-calculator"></i> Total de usuarios involucrados
+            <input type="number" name="Total_de_usuarios_involucrados" min="0">
+          </label>
+
+          <label><i class="fas fa-skull"></i> Total de fallecidos
+            <input type="number" name="Total_de_fallecidos" min="0">
+          </label>
+
+          <label><i class="fas fa-list-alt"></i> Clasificación de fallecidos
+            <select name="Clasificacion_de_usuarios_fallecidos">
+              <option value="">-- Selecciona --</option>
+              <option>No aplica</option>
+              <option>Peatón</option>
+              <option>Ciclista</option>
+              <option>Motociclista</option>
+              <option>Chofer de transporte público</option>
+              <option>Automovilista</option>
+              <option>Chofer de vehículo pesado</option>
+              <option>Otro</option>
+            </select>
+          </label>
+
+          <label><i class="fas fa-road"></i> Tipo de vialidad
+            <select name="Tipo_de_vialidad">
+              <option value="">-- Selecciona --</option>
+              <option>Avenida</option>
+              <option>Boulevard</option>
+              <option>Calle</option>
+              <option>Calzada</option>
+              <option>Carretera</option>
+              <option>Libramiento</option>
+              <option>Privada</option>
+            </select>
+          </label>
+        </fieldset>
+
+        <!-- Ubicación -->
+        <fieldset class="fieldset-grupo">
+          <legend><i class="fas fa-map-marker-alt"></i> Ubicación del Incidente</legend>
+          
+          <label><i class="fas fa-map-marker-alt"></i> Dirección
+            <input type="text" name="Direccion" id="direccion" readonly>
+          </label>
+
+          <label><i class="fas fa-globe"></i> Coordenadas Geográficas
+            <input type="text" name="Coordenadas_Geograficas" id="coordenadas" readonly>
+          </label>
+
+          <label style="grid-column: 1 / -1;"><i class="fas fa-map"></i> Mapa de localización
+            <div id="mapa" style="height: 350px; border: 2px solid #e0e0e0; border-radius: 15px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.1);"></div>
+            <small style="color: #666; margin-top: 5px; display: block;">Haz clic en el mapa para seleccionar la ubicación del incidente</small>
+          </label>
+        </fieldset>
+
+        <!-- Seguimiento -->
+        <fieldset class="fieldset-grupo">
+          <legend><i class="fas fa-clipboard-check"></i> Seguimiento del Incidente</legend>
+
+          <label><i class="fas fa-info-circle"></i> Estatus de hechos
+            <select name="Estatus_de_hechos" required>
+              <option value="">-- Selecciona estatus --</option>
+              <option>Reportado por ciudadanía</option>
+              <option>Verificado por autoridad local</option>
+              <option>Atención brindada en el sitio</option>
+              <option>En canalización institucional</option>
+              <option>Con seguimiento activo</option>
+              <option>En espera de resolución o cierre</option>
+              <option>Resuelto y registrado</option>
+              <option>Sin información adicional disponible</option>
+            </select>
+          </label>
+
+          <label><i class="fas fa-clipboard"></i> Seguimiento de hechos  
+            <textarea name="Seguimiento_de_hechos" rows="3" placeholder="Ej. Se canalizó a otra dependencia, hubo acciones institucionales..."></textarea>
+          </label>
+
+          <label style="grid-column: 1 / -1;"><i class="fas fa-file-alt"></i> Descripción de hechos
+            <textarea name="Descripcion_de_la_noticia" rows="4" placeholder="Ej. vehículo particular se volcó en la salida poniente de Tuxtla; el conductor resultó ileso según reportes del medio local"></textarea>
+          </label>
+        </fieldset>
+
+        <!-- Evidencias Fotográficas con Cloudinary -->
+        <fieldset class="fieldset-grupo">
+          <legend><i class="fas fa-camera"></i> Evidencias Fotográficas</legend>
+          
+          <div class="file-upload-container" style="grid-column: 1 / -1;">
+            <div class="file-upload-area cloudinary-upload" id="fileUploadArea">
+              <div class="file-upload-text">
+                <i class="fas fa-cloud-upload-alt" style="font-size: 2em; margin-bottom: 10px;"></i>
+                <div>Subir a Cloudinary</div>
+              </div>
+              <div class="file-upload-hint">Almacenamiento seguro en la nube • Optimización automática</div>
+            </div>
+            <div class="file-preview" id="filePreview"></div>
+          </div>
+        </fieldset>
+
+        <!-- Botón de envío -->
+        <div class="form-actions">
+          <button type="submit"><i class="fas fa-check-circle"></i> Enviar Registro</button>
+          <span id="respuesta"></span>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <!-- Modal de Duplicados -->
+  <div id="modalDuplicados" class="modal-overlay">
+    <div class="modal-content">
+      <!-- Encabezado del Modal -->
+      <div class="modal-header">
+        <button class="modal-close" onclick="cerrarModalDuplicados()">&times;</button>
+        <i class="fas fa-exclamation-triangle"></i>
+        <h2>Posible Duplicado Detectado</h2>
+        <p class="subtitle">Se encontró un registro similar en la base de datos</p>
+      </div>
+
+      <!-- Puntuación de Similitud -->
+      <div class="similarity-score">
+        <div class="score-container">
+          <div class="score-circle">
+            <svg class="score-progress" viewBox="0 0 100 100">
+              <circle class="score-bg" cx="50" cy="50" r="45"></circle>
+              <circle class="score-fill" cx="50" cy="50" r="45"></circle>
+            </svg>
+            <div class="score-text" id="scoreText">0%</div>
+          </div>
+          <div class="score-details">
+            <h3>Nivel de Similitud</h3>
+            <p>Comparación automática basada en múltiples criterios</p>
+            <div class="score-breakdown" id="scoreBreakdown">
+              <!-- Se llenará dinámicamente -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comparación de Registros -->
+      <div class="comparison-container">
+        <!-- Registro Nuevo -->
+        <div class="news-comparison nueva">
+          <div class="comparison-header">
+            <i class="fas fa-plus-circle"></i>
+            Registro Nuevo
+          </div>
+          <div class="comparison-body" id="nuevoRegistro">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+
+        <!-- Registro Existente -->
+        <div class="news-comparison existente">
+          <div class="comparison-header">
+            <i class="fas fa-database"></i>
+            Registro Existente
+          </div>
+          <div class="comparison-body" id="registroExistente">
+            <!-- Se llenará dinámicamente -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-cancel" onclick="cancelarEnvio()">
+          <i class="fas fa-times"></i>
+          Cancelar Envío
+        </button>
+        <button class="modal-btn modal-btn-continue" onclick="forzarEnvio()">
+          <i class="fas fa-check"></i>
+          Enviar de Todas Formas
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Secretaría de Movilidad y Transporte</h4>
+        <p>Estado de Chiapas, México</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos en redes sociales</h4>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/16mbEXWtoj/?mibextid=wwXIfr" target="_blank">
+            <img src="facebook-icon.png" alt="Facebook" class="icono-facebook">
+          </a>
+          <a href="https://www.instagram.com/smyt_chiapas?igsh=MTdteHo3d2NlNmY3cA==" target="_blank">
+            <img src="instagram-icon.png" alt="Instagram" class="icono-instagram">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="registro.js"></script>
+</body>
+</html>

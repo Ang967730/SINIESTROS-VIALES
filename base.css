@@ -1,0 +1,534 @@
+/* ============================================================
+   BASE.CSS - ESTILOS COMPARTIDOS
+   Estilos que se usan en todas las páginas
+   ============================================================ */
+
+/* ============================================================
+   RESET Y ESTILOS GLOBALES
+   ============================================================ */
+* { 
+  box-sizing: border-box; 
+  margin: 0; 
+  padding: 0; 
+}
+
+body { 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  background: linear-gradient(135deg, #f1f1f1 0%, #ffffff 100%);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+/* ============================================================
+   ANIMACIONES GLOBALES
+   ============================================================ */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInFromLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-10px); }
+  60% { transform: translateY(-5px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* ============================================================
+   ENCABEZADO COMPARTIDO
+   ============================================================ */
+header { 
+  position: relative; 
+  height: 300px; 
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(0,0,0,0.3), rgba(0,0,0,0.1));
+  z-index: 1;
+}
+
+header img.fondo { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+  transition: transform 0.3s ease;
+}
+
+header:hover img.fondo {
+  transform: scale(1.02);
+}
+
+.logo { 
+  position: absolute; 
+  top: 20px; 
+  left: 20px; 
+  z-index: 2;
+  animation: slideInFromLeft 0.8s ease;
+}
+
+.logo img { 
+  height: 75px;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4));
+  transition: transform 0.3s ease;
+}
+
+.logo img[src="ENAMOV.smyt.JPG"] {
+  height: 75px;
+}
+
+.logo:hover img {
+  transform: scale(1.1);
+}
+
+.titulo { 
+  position: absolute; 
+  bottom: 30px; 
+  left: 30px; 
+  color: white; 
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.7);
+  z-index: 2;
+  animation: slideInFromLeft 1s ease 0.3s both;
+}
+
+.titulo h1 {
+  font-size: 2.2em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: #ffffff;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+}
+
+.estrategia-nacional {
+  font-weight: 600;
+  font-size: 1.2em;
+  color: #ffd700;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+  margin: 10px 0;
+  letter-spacing: 0.5px;
+}
+
+.titulo p {
+  font-size: 1.1em;
+  opacity: 0.95;
+  color: #ffffff;
+}
+
+/* ============================================================
+   MENÚ DE NAVEGACIÓN COMPARTIDO
+   ============================================================ */
+.menu { 
+  display: flex; 
+  justify-content: center; 
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  padding: 15px; 
+  flex-wrap: wrap;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: blur(10px);
+}
+
+.menu a {
+  text-decoration: none;
+  margin: 5px;
+}
+
+.menu a.active button {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  box-shadow: 0 8px 25px rgba(25,118,210,0.3);
+}
+
+.menu button { 
+  background: linear-gradient(135deg, #ffffff, #f5f5f5);
+  color: #1976d2; 
+  border: none; 
+  font-weight: 600; 
+  padding: 12px 24px; 
+  border-radius: 25px; 
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  font-size: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu button:hover { 
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(25,118,210,0.3);
+}
+
+/* ============================================================
+   CONTENIDO PRINCIPAL COMPARTIDO
+   ============================================================ */
+.contenido-principal {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* ============================================================
+   TÍTULOS DE SECCIONES COMPARTIDOS
+   ============================================================ */
+.titulo-seccion, h2 {
+  text-align: center;
+  font-size: 2em;
+  font-weight: 700;
+  margin: 40px 0 30px;
+  color: #1976d2;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.titulo-seccion::after, h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #64b5f6);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+/* ============================================================
+   PIE DE PÁGINA COMPARTIDO
+   ============================================================ */
+footer { 
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white; 
+  padding: 40px 20px; 
+  margin-top: 60px;
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.1);
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.footer-section h4 {
+  margin-bottom: 15px;
+  font-size: 1.2em;
+  color: #ffffff;
+}
+
+.footer-section p {
+  color: rgba(255,255,255,0.9);
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.social-links a { 
+  color: #fff; 
+  text-decoration: none; 
+  display: inline-flex; 
+  align-items: center; 
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover { 
+  transform: translateY(-2px);
+}
+
+.icono-facebook, .icono-instagram { 
+  height: 32px;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.icono-facebook:hover, .icono-instagram:hover {
+  transform: scale(1.2);
+  animation: bounce 0.6s ease;
+}
+
+/* ============================================================
+   UTILIDADES COMPARTIDAS
+   ============================================================ */
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.grid-full {
+  grid-column: 1 / -1 !important;
+}
+
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+/* ============================================================
+   RESPONSIVE COMPARTIDO
+   ============================================================ */
+@media (max-width: 768px) {
+  header { 
+    height: 250px; 
+  }
+  
+  .titulo h1 { 
+    font-size: 1.8em; 
+  }
+  
+  .titulo p {
+    font-size: 1em;
+  }
+  
+  .menu { 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 10px;
+  }
+  
+  .menu a {
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .menu button {
+    width: 100%;
+    justify-content: center;
+  }
+  
+  .contenido-principal {
+    padding: 0 15px;
+  }
+  
+  .footer-content {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo h1 {
+    font-size: 1.5em;
+  }
+}
+
+/* ============================================================
+   NOTIFICACIONES
+   ============================================================ */
+.notification {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  padding: 15px 20px;
+  border-radius: 10px;
+  color: white;
+  font-weight: 600;
+  z-index: 10002;
+  max-width: 400px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+  animation: slideInFromLeft 0.5s ease;
+}
+
+.notification.success {
+  background: linear-gradient(135deg, #4caf50, #388e3c);
+}
+
+.notification.error {
+  background: linear-gradient(135deg, #f44336, #d32f2f);
+}
+
+.notification.info {
+  background: linear-gradient(135deg, #2196f3, #1976d2);
+}
+
+.notification .close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  background: none;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.notification .close-btn:hover {
+  opacity: 1;
+}
+
+/* ============================================================
+   UTILIDADES ADICIONALES
+   ============================================================ */
+.hidden {
+  display: none !important;
+}
+
+.visible {
+  display: block !important;
+}
+
+.text-center {
+  text-align: center !important;
+}
+
+.mb-20 {
+  margin-bottom: 20px !important;
+}
+
+.mt-20 {
+  margin-top: 20px !important;
+}
+
+.grid-full {
+  grid-column: 1 / -1 !important;
+}
+
+/* Clases para estados de carga */
+.loading {
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.loading::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #f3f3f3;
+  border-top: 2px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  transform: translate(-50%, -50%);
+}
+
+/* ============================================================
+   ESTILOS PERSONALIZADOS LEAFLET
+   ============================================================ */
+.custom-popup .leaflet-popup-content {
+  margin: 8px;
+}
+
+.custom-popup .leaflet-popup-content-wrapper {
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.custom-div-icon {
+  background: none;
+  border: none;
+}
+
+
+/* ============================================================
+   INDICADORES DE PROGRESO
+   ============================================================ */
+.progress-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(255,255,255,0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  z-index: 10001;
+  display: none;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.progress-indicator.show {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+.progress-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e0e0e0;
+  border-top: 4px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 15px;
+}
+
+.progress-text {
+  color: #1976d2;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.progress-subtext {
+  color: #666;
+  font-size: 14px;
+  margin-top: 8px;
+}

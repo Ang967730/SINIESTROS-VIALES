@@ -1,0 +1,726 @@
+/* ============================================================
+   INDEX.CSS - ESTILOS ESPECÍFICOS DE LA PÁGINA PRINCIPAL
+   Sistema de Siniestros Viales - Estado de Chiapas
+   ============================================================ */
+
+/* ============================================================
+   SECCIÓN HERO
+   ============================================================ */
+.hero {
+  background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+  color: white;
+  padding: 60px 40px;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  box-shadow: 0 10px 40px rgba(25, 118, 210, 0.3);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.hero-content h2 {
+  font-size: 2.5em;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+  line-height: 1.3;
+}
+
+.hero-content h2::after {
+  display: none; /* Quitar la línea del h2 en hero */
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  opacity: 0.95;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  color: rgba(255,255,255,0.95);
+}
+
+/* ============================================================
+   TARJETAS DE FUNCIONALIDADES
+   ============================================================ */
+.funcionalidades {
+  margin: 50px 0;
+}
+
+.tarjetas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.tarjeta {
+  background: white;
+  border-radius: 20px;
+  padding: 40px 30px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  transition: all 0.4s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+}
+
+.tarjeta::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #64b5f6);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.tarjeta:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 50px rgba(25, 118, 210, 0.25);
+  border-color: #1976d2;
+}
+
+.tarjeta:hover::before {
+  transform: scaleX(1);
+}
+
+.tarjeta-icono {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #1976d2, #64b5f6);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 25px;
+  box-shadow: 0 8px 20px rgba(25, 118, 210, 0.3);
+  transition: all 0.4s ease;
+}
+
+.tarjeta:hover .tarjeta-icono {
+  transform: rotate(360deg) scale(1.1);
+  box-shadow: 0 12px 30px rgba(25, 118, 210, 0.4);
+}
+
+.tarjeta-icono i {
+  font-size: 2.5em;
+  color: white;
+}
+
+.tarjeta h3 {
+  font-size: 1.5em;
+  color: #1976d2;
+  margin-bottom: 15px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.tarjeta p {
+  color: #666;
+  line-height: 1.6;
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+
+.tarjeta-boton {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.tarjeta-boton span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1976d2;
+  font-weight: 600;
+  font-size: 1em;
+  transition: all 0.3s ease;
+}
+
+.tarjeta:hover .tarjeta-boton span {
+  gap: 15px;
+  color: #1565c0;
+}
+
+.tarjeta-boton i {
+  transition: transform 0.3s ease;
+}
+
+.tarjeta:hover .tarjeta-boton i {
+  transform: translateX(5px);
+}
+
+/* ============================================================
+   ESTADÍSTICAS RÁPIDAS
+   ============================================================ */
+.estadisticas-rapidas {
+  background: white;
+  padding: 50px 40px;
+  border-radius: 20px;
+  margin: 50px 0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  animation: fadeIn 1s ease;
+}
+
+.estadisticas-rapidas h2 {
+  margin-bottom: 40px;
+  color: #1976d2;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+}
+
+.stat-item {
+  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+  padding: 35px 25px;
+  border-radius: 15px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border: 2px solid transparent;
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(25,118,210,0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.stat-item:hover::before {
+  left: 100%;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(25, 118, 210, 0.2);
+  border-color: #1976d2;
+}
+
+.stat-numero {
+  font-size: 2.2em;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover .stat-numero {
+  transform: scale(1.1);
+  color: #1565c0;
+}
+
+.stat-label {
+  font-size: 1.1em;
+  color: #666;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+/* ============================================================
+   MAPA DE CALOR PREVIEW
+   ============================================================ */
+.mapa-calor-preview {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  margin: 50px 0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  animation: fadeIn 1.2s ease;
+}
+
+.mapa-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.mapa-header h2 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.8em;
+}
+
+.mapa-header h2 i {
+  color: #ff6b6b;
+  animation: pulse 2s ease-in-out infinite;
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
+  -webkit-font-smoothing: antialiased;
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  line-height: 1;
+}
+
+.btn-ver-mapa-completo {
+  background: linear-gradient(135deg, #1976d2, #1565c0);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(25, 118, 210, 0.3);
+}
+
+.btn-ver-mapa-completo:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.4);
+  gap: 12px;
+}
+
+.mapa-info {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+  border-radius: 10px;
+  border-left: 4px solid #1976d2;
+}
+
+.mapa-info p {
+  color: #666;
+  margin: 0;
+  font-size: 1em;
+  line-height: 1.6;
+}
+
+.mapa-container {
+  height: 450px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  border: 2px solid #e0e0e0;
+  position: relative;
+  background: #f5f5f5;
+}
+
+#mapaCalorPreview {
+  height: 100%;
+  width: 100%;
+  position: relative !important;
+  z-index: 1;
+}
+
+/* Estilos adicionales para Leaflet */
+.leaflet-container {
+  position: relative !important;
+}
+
+.mapa-calor-preview .leaflet-container {
+  height: 450px !important;
+  border-radius: 15px;
+}
+
+.mapa-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #1976d2;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #e0e0e0;
+  border-top: 5px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 20px;
+}
+
+.mapa-loading p {
+  font-size: 1.1em;
+  font-weight: 600;
+  color: #1976d2;
+}
+
+/* ============================================================
+   INFORMACIÓN DEL SISTEMA
+   ============================================================ */
+.info-sistema {
+  margin: 50px 0;
+  animation: fadeIn 1.4s ease;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.info-item {
+  background: white;
+  padding: 35px 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.4s ease;
+  border: 2px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #1976d2, #64b5f6);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.info-item:hover::before {
+  transform: scaleX(1);
+}
+
+.info-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(25, 118, 210, 0.15);
+  border-color: #e3f2fd;
+}
+
+.info-item h3 {
+  color: #1976d2;
+  font-size: 1.3em;
+  margin-bottom: 15px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-item h3 i {
+  font-size: 1.4em;
+  color: #1976d2;
+  transition: transform 0.3s ease;
+}
+
+.info-item:hover h3 i {
+  transform: scale(1.2);
+}
+
+.info-item p {
+  color: #666;
+  line-height: 1.6;
+  font-size: 1em;
+}
+
+/* ============================================================
+   ANIMACIONES PERSONALIZADAS
+   ============================================================ */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 992px) {
+  .hero-content h2 {
+    font-size: 2em;
+  }
+  
+  .tarjetas {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+  }
+  
+  .mapa-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .btn-ver-mapa-completo {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 40px 25px;
+  }
+  
+  .hero-content h2 {
+    font-size: 1.8em;
+  }
+  
+  .hero-content p {
+    font-size: 1em;
+  }
+  
+  .tarjetas {
+    grid-template-columns: 1fr;
+  }
+  
+  .estadisticas-rapidas {
+    padding: 30px 20px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .stat-numero {
+    font-size: 2em;
+  }
+  
+  .mapa-calor-preview {
+    padding: 25px 20px;
+  }
+  
+  .mapa-header h2 {
+    font-size: 1.5em;
+  }
+  
+  .mapa-container {
+    height: 350px;
+  }
+  
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h2 {
+    font-size: 1.5em;
+  }
+  
+  .hero-content p {
+    font-size: 0.95em;
+  }
+  
+  .tarjeta {
+    padding: 30px 20px;
+  }
+  
+  .tarjeta-icono {
+    width: 70px;
+    height: 70px;
+  }
+  
+  .tarjeta-icono i {
+    font-size: 2em;
+  }
+  
+  .tarjeta h3 {
+    font-size: 1.3em;
+  }
+  
+  .stat-numero {
+    font-size: 1.8em;
+  }
+  
+  .stat-label {
+    font-size: 1em;
+  }
+  
+  .mapa-header h2 {
+    font-size: 1.3em;
+  }
+  
+  .mapa-container {
+    height: 300px;
+  }
+  
+  .info-item {
+    padding: 25px 20px;
+  }
+  
+  .info-item h3 {
+    font-size: 1.1em;
+  }
+}
+
+/* ============================================================
+   MEJORAS DE ACCESIBILIDAD
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================================
+   MODO OSCURO (OPCIONAL - PREPARADO PARA FUTURO)
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  /* Los estilos de modo oscuro pueden agregarse aquí en el futuro */
+}
+
+/* ============================================================
+   ESTILOS DE IMPRESIÓN
+   ============================================================ */
+@media print {
+  .menu,
+  .btn-ver-mapa-completo,
+  footer {
+    display: none;
+  }
+  
+  .hero,
+  .tarjeta,
+  .estadisticas-rapidas,
+  .mapa-calor-preview,
+  .info-item {
+    box-shadow: none;
+    border: 1px solid #ddd;
+    page-break-inside: avoid;
+  }
+  
+  body {
+    background: white;
+  }
+}
+
+/* ============================================================
+   ESTADOS DE CARGA Y ERROR
+   ============================================================ */
+.error-message {
+  background: linear-gradient(135deg, #ffebee, #ffcdd2);
+  color: #c62828;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #c62828;
+  margin: 20px 0;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.success-message {
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  color: #2e7d32;
+  padding: 20px;
+  border-radius: 10px;
+  border-left: 4px solid #2e7d32;
+  margin: 20px 0;
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255,255,255,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  backdrop-filter: blur(5px);
+}
+
+.loading-content {
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #e0e0e0;
+  border-top: 6px solid #1976d2;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+.loading-text {
+  font-size: 1.2em;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.tarjeta-icono {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.gif-icono {
+  width: 90px;  /* tamaño ajustable */
+  height: 90px;
+  object-fit: contain;
+  border-radius: 12px; /* opcional, suaviza los bordes */
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.tarjeta:hover .gif-icono {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}

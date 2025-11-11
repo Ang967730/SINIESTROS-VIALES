@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas Avanzadas - Siniestros Viales</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="estadisticas.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+</head>
+<body>
+
+  <!-- Encabezado -->
+  <header>
+    <img src="fondo-tuxtla.jpg" alt="Fondo de Tuxtla" class="fondo">
+    <div class="logo">
+      <img src="logo-smyt.png" alt="Logo Secretaría de Movilidad y Transporte">
+    </div>
+    <div class="titulo">
+      <h1>Estadísticas Avanzadas</h1>
+      <p>Estado de Chiapas · Secretaría de Movilidad y Transporte</p>
+      <p class="estrategia-nacional">Estrategia Nacional de Movilidad y Seguridad Vial</p>
+    </div>
+  </header>
+
+  <!-- Menú de navegación -->
+  <nav class="menu">
+    <a href="index.html"><button><i class="fas fa-home"></i> Inicio</button></a>
+    <a href="registro.html"><button><i class="fas fa-plus-circle"></i> Registro de Incidentes</button></a>
+    <a href="mapa.html"><button><i class="fas fa-map-marked-alt"></i> Mapa de Incidentes</button></a>
+    <a href="estadisticas.html" class="active"><button><i class="fas fa-chart-line"></i> Estadísticas y Análisis</button></a>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido-principal">
+    
+    <!-- Resumen General -->
+    <section class="resumen-general">
+      <h2><i class="fas fa-chart-bar"></i> Resumen General</h2>
+      <div class="stats-grid-main">
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-exclamation-triangle"></i></div>
+          <div class="stat-info">
+            <div class="stat-number" id="totalIncidentes">0</div>
+            <div class="stat-label">Total de Incidentes</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-skull"></i></div>
+          <div class="stat-info">
+            <div class="stat-number" id="totalFallecidosGeneral">0</div>
+            <div class="stat-label">Total de Fallecidos</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-users"></i></div>
+          <div class="stat-info">
+            <div class="stat-number" id="totalInvolucrados">0</div>
+            <div class="stat-label">Total de Involucrados</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon"><i class="fas fa-percentage"></i></div>
+          <div class="stat-info">
+            <div class="stat-number" id="tasaLetalidadGeneral">0%</div>
+            <div class="stat-label">Tasa de Letalidad</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<!-- Selector de Municipio Global -->
+<section class="filtro-municipio-global">
+  <div class="filtro-municipio-header">
+    <h3>
+      <i class="fas fa-map-marker-alt"></i> 
+      Filtrar por Municipio
+    </h3>
+    <p class="filtro-municipio-descripcion">
+      Selecciona un municipio para filtrar todas las gráficas y estadísticas
+    </p>
+  </div>
+  
+  <div id="municipioFilterContainer" class="municipio-filter-container">
+    <div class="selector-wrapper">
+      <label for="filtroMunicipio">
+        <i class="fas fa-city"></i> Municipio:
+      </label>
+      <select id="filtroMunicipio" onchange="cambiarFiltroMunicipio()" class="municipio-selector">
+        <option value="">Cargando municipios...</option>
+      </select>
+    </div>
+    
+    <div class="filtro-stats">
+      <div class="stat-mini">
+        <i class="fas fa-database"></i>
+        <span>Datos cargando...</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+    <!-- Panel 1: Análisis Temporal y Geoespacial -->
+    <section class="analytics-panel">
+      <button class="analytics-toggle" onclick="togglePanel('temporal')">
+        <span><i class="fas fa-chart-line"></i> Análisis Temporal y Geoespacial</span>
+        <i class="fas fa-chevron-down" id="temporalToggleIcon"></i>
+      </button>
+      <div class="analytics-content" id="temporalContent">
+        
+        <!-- Métricas Temporales -->
+        <div class="analytics-grid">
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fas fa-city"></i></div>
+            <h4>Municipio Más Peligroso</h4>
+            <div class="metric-value" id="municipioPeligroso">---</div>
+            <div class="metric-detail" id="municipioDetalle">Cargando...</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fas fa-calendar-day"></i></div>
+            <h4>Día Más Peligroso</h4>
+            <div class="metric-value" id="diaPeligroso">---</div>
+            <div class="metric-detail" id="diaDetalle">Cargando...</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fas fa-map-pin"></i></div>
+            <h4>Zonas Críticas</h4>
+            <div class="metric-value" id="zonasCriticas">0</div>
+            <div class="metric-detail" id="zonasDetalle">Cargando...</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-icon"><i class="fas fa-trending-up"></i></div>
+            <h4>Tendencia</h4>
+            <div class="metric-value" id="tendencia">--</div>
+            <div class="metric-detail" id="tendenciaDetalle">Cargando...</div>
+          </div>
+        </div>
+        
+        <!-- Gráficas temporales -->
+        <div class="charts-container">
+          <div class="chart-card">
+            <h4><i class="fas fa-calendar-week"></i> Distribución por Día de la Semana</h4>
+            <canvas id="chartDias"></canvas>
+          </div>
+          <div class="chart-card">
+            <h4><i class="fas fa-city"></i> Top 10 Municipios con Más Incidentes</h4>
+            <canvas id="chartMunicipios"></canvas>
+          </div>
+        </div>
+
+        <!-- Lista de Zonas Peligrosas -->
+        <div class="danger-zones-section">
+          <h4><i class="fas fa-exclamation-triangle"></i> Top 5  Zonas Más Peligrosas</h4>
+          <div id="zonasPeligrosasContainer">
+            <p class="loading-text">Analizando datos geoespaciales...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel 2: Perfil de Siniestros -->
+    <section class="analytics-panel">
+      <button class="analytics-toggle" onclick="togglePanel('perfil')">
+        <span><i class="fas fa-chart-pie"></i> Perfil de Siniestros</span>
+        <i class="fas fa-chevron-down" id="perfilToggleIcon"></i>
+      </button>
+      <div class="analytics-content" id="perfilContent" style="display: none;">
+        
+        <!-- Métricas rápidas -->
+        <div class="quick-metrics-grid">
+          <div class="metric-card-small">
+            <div class="metric-icon-small"><i class="fas fa-skull"></i></div>
+            <div class="metric-label">Total Fallecidos</div>
+            <div class="metric-big" id="totalFallecidos">0</div>
+            <div class="metric-change" id="cambioFallecidos">en todos los registros</div>
+          </div>
+          <div class="metric-card-small">
+            <div class="metric-icon-small"><i class="fas fa-users"></i></div>
+            <div class="metric-label">Promedio Involucrados</div>
+            <div class="metric-big" id="promedioInvolucrados">0</div>
+            <div class="metric-change">por incidente</div>
+          </div>
+          <div class="metric-card-small">
+            <div class="metric-icon-small"><i class="fas fa-percentage"></i></div>
+            <div class="metric-label">Tasa de Letalidad</div>
+            <div class="metric-big" id="tasaLetalidad">0%</div>
+            <div class="metric-change">fallecidos/involucrados</div>
+          </div>
+          <div class="metric-card-small">
+            <div class="metric-icon-small"><i class="fas fa-exclamation-circle"></i></div>
+            <div class="metric-label">Causa Principal</div>
+            <div class="metric-big-text" id="causaPrincipal">---</div>
+            <div class="metric-change" id="causaPrincipalCount">0 casos</div>
+          </div>
+        </div>
+
+        <!-- Distribución Temporal -->
+        <div class="temporal-distribution-section">
+          <div class="temporal-header">
+            <h4><i class="fas fa-chart-area"></i> Distribución Temporal de Incidentes</h4>
+            <div class="temporal-controls">
+              <div class="temporal-selector">
+                <label><i class="fas fa-calendar-alt"></i> Período:</label>
+                <select id="periodoDistribucion" onchange="actualizarDistribucionTemporal()">
+                  <option value="mensual">Mensual</option>
+                  <option value="trimestral">Trimestral</option>
+                  <option value="anual">Anual</option>
+                </select>
+              </div>
+              <button id="btnLimpiarFiltro" class="btn-limpiar-filtro" onclick="limpiarFiltroTemporal()" style="display: none;">
+                <i class="fas fa-times-circle"></i> Limpiar Filtro
+              </button>
+            </div>
+          </div>
+          <div id="filtroActivoIndicador" class="filtro-activo-indicador" style="display: none;">
+            <i class="fas fa-filter"></i> <span id="textoFiltroActivo"></span>
+          </div>
+          <div class="chart-card-temporal">
+            <canvas id="chartDistribucionTemporal"></canvas>
+          </div>
+        </div>
+
+        <!-- Gráficas principales -->
+<!-- ==========================
+     GRÁFICAS PRINCIPALES
+     ========================== -->
+<div class="charts-container same-size-charts">
+  <div class="chart-card" id="cardTiposSiniestro">
+    <h4><i class="fas fa-car-crash"></i> Tipos de Siniestro</h4>
+    <canvas id="chartTiposSiniestro"></canvas>
+  </div>
+  <div class="chart-card" id="cardCausas">
+    <h4><i class="fas fa-search"></i> Causas Principales</h4>
+    <canvas id="chartCausas"></canvas>
+  </div>
+</div>
+
+<!-- ==========================
+     GRÁFICAS ADICIONALES
+     ========================== -->
+<div class="charts-container-perfil">
+  <div class="chart-card interactive">
+    <h4><i class="fas fa-user-friends"></i> Personas Involucradas</h4>
+    <canvas id="chartPersonasInvolucradas"></canvas>
+  </div>
+  <div class="chart-card interactive">
+    <h4><i class="fas fa-users"></i> Clasificación de Fallecidos</h4>
+    <canvas id="chartClasificacionFallecidos"></canvas>
+  </div>
+ <div class="chart-card interactive">
+    <h4><i class="fas fa-road"></i> Tipos de Vialidad</h4>
+    <canvas id="chartTiposVialidad"></canvas>
+  </div>
+</div>
+    </section>
+
+    <!-- Panel 3: Análisis Cruzado -->
+    <section class="analytics-panel">
+      <button class="analytics-toggle" onclick="togglePanel('cruzado')">
+        <span><i class="fas fa-project-diagram"></i> Análisis Cruzado (Insights Avanzados)</span>
+        <i class="fas fa-chevron-down" id="cruzadoToggleIcon"></i>
+      </button>
+      <div class="analytics-content" id="cruzadoContent" style="display: none;">
+        
+        <!-- Selector de análisis -->
+        <div class="cross-analysis-selector">
+          <label><i class="fas fa-filter"></i> Selecciona el tipo de análisis cruzado:</label>
+          <select id="tipoAnalisisCruzado" onchange="actualizarAnalisisCruzado()">
+            <option value="municipio_fallecidos">Letalidad por Municipio (Fallecidos vs Incidentes)</option>
+            <option value="vialidad_tipo">Tipo de Siniestro por Tipo de Vialidad</option>
+            <option value="dia_causa">Causa del Siniestro por Día de Semana</option>
+            <option value="municipio_causa">Causa Principal por Municipio</option>
+            <option value="vialidad_fallecidos">Letalidad por Tipo de Vialidad</option>
+          </select>
+        </div>
+        
+        <div class="chart-card-large">
+          <canvas id="chartAnalisisCruzado"></canvas>
+        </div>
+        
+        <!-- Insights automáticos -->
+        <div class="insights-container">
+          <h4><i class="fas fa-lightbulb"></i> Insights Detectados</h4>
+          <div id="insightsList">
+            <p class="loading-text">Analizando datos...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Pie de página -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Secretaría de Movilidad y Transporte</h4>
+        <p>Estado de Chiapas, México</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos en redes sociales</h4>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/16mbEXWtoj/?mibextid=wwXIfr" target="_blank">
+            <img src="facebook-icon.png" alt="Facebook" class="icono-facebook">
+          </a>
+          <a href="https://www.instagram.com/smyt_chiapas?igsh=MTdteHo3d2NlNmY3cA==" target="_blank">
+            <img src="instagram-icon.png" alt="Instagram" class="icono-instagram">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="estadisticas.js"></script>
+</body>
+</html>

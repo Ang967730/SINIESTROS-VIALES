@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa de Incidentes - Siniestros Viales</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="mapa.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+<body>
+
+  <!-- Encabezado -->
+  <header>
+    <img src="fondo-tuxtla.jpg" alt="Fondo de Tuxtla" class="fondo">
+    <div class="logo">
+      <img src="logo-smyt.png" alt="Logo Secretaría de Movilidad y Transporte">
+    </div>
+    <div class="titulo">
+      <h1>Mapa de Incidentes</h1>
+      <p>Estado de Chiapas · Secretaría de Movilidad y Transporte</p>
+      <p class="estrategia-nacional">Estrategia Nacional de Movilidad y Seguridad Vial</p>
+    </div>
+  </header>
+
+  <!-- Menú de navegación -->
+  <nav class="menu">
+    <a href="index.html"><button><i class="fas fa-home"></i> Inicio</button></a>
+    <a href="registro.html"><button><i class="fas fa-plus-circle"></i> Registro de Incidentes</button></a>
+    <a href="mapa.html" class="active"><button><i class="fas fa-map-marked-alt"></i> Mapa de Incidentes</button></a>
+    <a href="estadisticas.html"><button><i class="fas fa-chart-line"></i> Estadísticas y Análisis</button></a>
+  </nav>
+
+  <!-- Contenido principal -->
+  <main class="contenido-principal">
+    <section class="mapa-seccion">
+      <div class="mapa-header">
+        <h2><i class="fas fa-map-marked-alt"></i> Visualización Interactiva de Incidentes</h2>
+      </div>
+
+      <!-- Filtros Avanzados -->
+      <div class="filtros-avanzados">
+        <h3><i class="fas fa-filter"></i> Filtros Avanzados</h3>
+        <div class="filtros-grid">
+          <div class="filtro-grupo">
+            <label><i class="fas fa-calendar-alt"></i> Tipo de Período</label>
+            <select id="tipoPeriodo" onchange="cambiarTipoPeriodo()">
+              <option value="todos">Todos los períodos</option>
+              <option value="mensual">Mensual</option>
+              <option value="trimestral">Trimestral</option>
+            </select>
+          </div>
+          
+          <div class="filtro-grupo" id="selectorPeriodoContainer" style="display: none;">
+            <label><i class="fas fa-calendar-check"></i> Seleccionar Período</label>
+            <select id="selectorPeriodo" onchange="aplicarFiltrosAvanzados()">
+              <option value="">Seleccione un período</option>
+            </select>
+          </div>
+          
+          <div class="filtro-grupo">
+            <label><i class="fas fa-city"></i> Municipio</label>
+            <select id="filtroMunicipio" onchange="aplicarFiltrosAvanzados()">
+              <option value="">Todos los municipios</option>
+            </select>
+          </div>
+          
+          <div class="filtro-grupo">
+            <label><i class="fas fa-skull"></i> Fallecidos Mínimos</label>
+            <input type="number" id="minFallecidos" min="0" value="0" 
+                   onchange="aplicarFiltrosAvanzados()" placeholder="0">
+          </div>
+          
+          <div class="filtro-grupo">
+            <button class="btn-limpiar-filtros" onclick="limpiarFiltrosAvanzados()">
+              <i class="fas fa-eraser"></i> Limpiar Filtros
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div id="mapaIncidentes">
+        
+        <!-- Leyenda Interactiva -->
+        <div class="legend-panel">
+          <div class="legend-header">
+            <div class="legend-title">
+              <i class="fas fa-list"></i>
+              Causa del Siniestro
+            </div>
+            <button class="legend-toggle" onclick="toggleLegend()">
+              <i class="fas fa-chevron-up" id="legendToggleIcon"></i>
+            </button>
+          </div>
+          <div class="legend-content" id="legendContent">
+            <div class="legend-item" data-type="Choque" onclick="filterByType('Choque')">
+              <div class="legend-icon" style="background-color: #ff4444;">
+                <i class="fas fa-car-crash"></i>
+              </div>
+              <div class="legend-text">Choque</div>
+              <div class="legend-count" id="count-Choque">0</div>
+            </div>
+            
+            <div class="legend-item" data-type="Atropello" onclick="filterByType('Atropello')">
+              <div class="legend-icon" style="background-color: #ff8800;">
+                <i class="fas fa-walking"></i>
+              </div>
+              <div class="legend-text">Atropello</div>
+              <div class="legend-count" id="count-Atropello">0</div>
+            </div>
+            
+            <div class="legend-item" data-type="Volcadura" onclick="filterByType('Volcadura')">
+              <div class="legend-icon" style="background-color: #8844ff;">
+                <i class="fas fa-car-side" style="transform: rotate(90deg);"></i>
+              </div>
+              <div class="legend-text">Volcadura</div>
+              <div class="legend-count" id="count-Volcadura">0</div>
+            </div>
+            
+            <div class="legend-item" data-type="Caída" onclick="filterByType('Caída')">
+              <div class="legend-icon" style="background-color: #44ff44;">
+                <i class="fas fa-motorcycle"></i>
+              </div>
+              <div class="legend-text">Caída</div>
+              <div class="legend-count" id="count-Caída">0</div>
+            </div>
+            
+            <div class="legend-item" data-type="Otro" onclick="filterByType('Otro')">
+              <div class="legend-icon" style="background-color: #888888;">
+                <i class="fas fa-exclamation"></i>
+              </div>
+              <div class="legend-text">Otro</div>
+              <div class="legend-count" id="count-Otro">0</div>
+            </div>
+            
+            <div class="legend-item legend-all" onclick="filterByType('all')">
+              <div class="legend-text">
+                <i class="fas fa-globe"></i> Mostrar Todos
+              </div>
+              <div class="legend-count" id="count-all">0</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Selector de Capas -->
+        <div class="layer-selector" id="layerSelector">
+          <div class="layer-header">
+            <div class="layer-title-container">
+              <i class="fas fa-layer-group"></i>
+              <span>Capas del Mapa</span>
+            </div>
+            <button class="layer-toggle" onclick="toggleLayerSelector()">
+              <i class="fas fa-chevron-up" id="layerToggleIcon"></i>
+            </button>
+          </div>
+          <div class="layer-content" id="layerContent">
+            <div class="layer-options">
+              <div class="layer-option active" data-layer="osm" onclick="changeMapLayer('osm', this)">
+                <i class="fas fa-map layer-icon"></i>
+                <div class="layer-title">Comunitario</div>
+                <div class="layer-description">Mapa base estándar</div>
+              </div>
+              
+              <div class="layer-option" data-layer="hot" onclick="changeMapLayer('hot', this)">
+                <i class="fas fa-exclamation-triangle layer-icon"></i>
+                <div class="layer-title">Infraestructura</div>
+                <div class="layer-description">Zonas críticas</div>
+              </div>
+              
+              <div class="layer-option" data-layer="topo" onclick="changeMapLayer('topo', this)">
+                <i class="fas fa-mountain layer-icon"></i>
+                <div class="layer-title">Topográfico</div>
+                <div class="layer-description">Relieve del terreno</div>
+              </div>
+              
+              <div class="layer-option" data-layer="traffic" onclick="changeMapLayer('traffic', this)">
+                <i class="fas fa-road layer-icon"></i>
+                <div class="layer-title">Tráfico</div>
+                <div class="layer-description">Movilidad actual</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles del Mapa -->
+        <div class="map-controls">
+          <button class="map-control-btn" onclick="toggleHeatmapView()">
+            <i class="fas fa-fire"></i>
+            <span id="heatmapText">Ocultar Mapa de Calor</span>
+          </button>
+          <button class="map-control-btn" onclick="toggleMarkersView()">
+            <i class="fas fa-map-pin"></i>
+            <span id="markersText">Ocultar Marcadores</span>
+          </button>
+          <button class="map-control-btn" onclick="toggleZonasPeligrosas()">
+            <i class="fas fa-exclamation-circle"></i>
+            <span id="zonasText">Mostrar Zonas Peligrosas</span>
+          </button>
+          <button class="map-control-btn" onclick="centrarMapa()">
+            <i class="fas fa-crosshairs"></i>
+            Centrar Mapa
+          </button>
+          <button class="map-control-btn" onclick="mostrarModalDescarga()">
+            <i class="fas fa-download"></i>
+            Descargar Datos
+          </button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal para seleccionar formato de descarga -->
+  <div id="modalDescarga" class="modal-overlay">
+    <div class="modal-content modal-descarga">
+      <div class="modal-header">
+        <i class="fas fa-download"></i>
+        Selecciona el Formato de Descarga
+      </div>
+      <p style="text-align: center; margin-bottom: 20px;">
+        Elige el formato en el que deseas descargar los datos del mapa:
+      </p>
+      <div class="download-options">
+        <div class="download-option" onclick="descargarMapa('png')">
+          <div class="download-icon">
+            <i class="fas fa-image"></i>
+          </div>
+          <div class="download-info">
+            <h4>Imagen PNG</h4>
+            <p>Descarga una imagen del mapa actual</p>
+            <small>Perfecto para presentaciones</small>
+          </div>
+        </div>
+        
+        <div class="download-option" onclick="descargarMapa('kml')">
+          <div class="download-icon">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <div class="download-info">
+            <h4>Archivo KML</h4>
+            <p>Datos para Google Earth</p>
+            <small>Compatible con Google Earth</small>
+          </div>
+        </div>
+        
+        <div class="download-option" onclick="descargarMapa('csv')">
+          <div class="download-icon">
+            <i class="fas fa-file-excel"></i>
+          </div>
+          <div class="download-info">
+            <h4>Archivo CSV</h4>
+            <p>Datos tabulares (.csv)</p>
+            <small>Compatible con Excel</small>
+          </div>
+        </div>
+        
+        <div class="download-option" onclick="descargarMapa('geojson')">
+          <div class="download-icon">
+            <i class="fas fa-code"></i>
+          </div>
+          <div class="download-info">
+            <h4>GeoJSON</h4>
+            <p>Datos geográficos</p>
+            <small>Compatible con SIG</small>
+          </div>
+        </div>
+      </div>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-cancel" onclick="cerrarModalDescarga()">
+          <i class="fas fa-times"></i> Cancelar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de página -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>Secretaría de Movilidad y Transporte</h4>
+        <p>Estado de Chiapas, México</p>
+      </div>
+      <div class="footer-section">
+        <h4>Síguenos en redes sociales</h4>
+        <div class="social-links">
+          <a href="https://www.facebook.com/share/16mbEXWtoj/?mibextid=wwXIfr" target="_blank">
+            <img src="facebook-icon.png" alt="Facebook" class="icono-facebook">
+          </a>
+          <a href="https://www.instagram.com/smyt_chiapas?igsh=MTdteHo3d2NlNmY3cA==" target="_blank">
+            <img src="instagram-icon.png" alt="Instagram" class="icono-instagram">
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
+  <script src="mapa.js"></script>
+</body>
+</html>
